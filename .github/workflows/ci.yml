@@ -13,10 +13,21 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Bootstrap build artefacts (quran.db)
+        working-directory: .
+        run: bash scripts/bootstrap.sh
+
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: 3.24.3
           channel: stable
           cache: true
+
       - run: flutter pub get
       - run: flutter analyze --no-fatal-infos

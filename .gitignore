@@ -30,15 +30,14 @@ training/wandb/
 
 # ── Data pipeline outputs (built locally) ─────────────────────
 data_pipeline/quran.db
-data_pipeline/quran-uthmani.xml
 data_pipeline/*.json
 
-# ── Quran data (build artefacts, don't commit) ────────────────
-# input XML placed at repo root
-/quran-uthmani.xml
-# built DB shipped to Flutter assets (any depth)
+# ── Quran data ────────────────────────────────────────────────
+# XML source: COMMITTED (canonical CC BY 3.0 source for reproducible build).
+# quran-uthmani.xml is intentionally NOT ignored — it is the build input.
+#
+# DB: build artefact, regenerated from the XML via scripts/bootstrap.* — never committed.
 **/assets/quran.db
-# built DB inside nested data_pipeline tree
 **/data_pipeline/quran.db
 
 # ── C++ / CMake (native/ + native/build/) ─────────────────────

@@ -1,0 +1,70 @@
+# ── OS / editors ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Python (data_pipeline/ + training/) ───────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# ── Training artefacts (heavy — never commit) ─────────────────
+training/out/
+training/wandb/
+*.onnx
+*.ort
+*.bin
+*.safetensors
+*.pt
+*.ckpt
+
+# ── Data pipeline outputs (built locally) ─────────────────────
+data_pipeline/quran.db
+data_pipeline/quran-uthmani.xml
+data_pipeline/*.json
+
+# ── C++ / CMake (native/ + native/build/) ─────────────────────
+build/
+cmake-build-*/
+*.o
+*.obj
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+*.gch
+*.pch
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# ── Flutter / Dart top-level guard ────────────────────────────
+# (the nested murojaah_app/murojaah_app/.gitignore handles the
+#  app-level ignores; this is just belt-and-suspenders for the
+#  root in case anyone runs flutter commands from the wrong dir)
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+pubspec.lock
+
+# ── Local secrets / scratch ───────────────────────────────────
+.env
+.env.local
+*.local
+scratch/
+tmp/

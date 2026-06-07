@@ -1,5 +1,7 @@
 # Murojaah
 
+> Repo name uses **murAjaah** (with 'a'); code & package identifiers use **murOjaah** (with 'o'). Both are valid romanizations of مراجعة and are intentional — don't "fix" one to match the other.
+
 Murojaah — offline, real-time Qur'an memorization checker. As the reciter speaks, correct words turn green, wrong red, not-yet-reached stay gray. Full pipeline (capture → DSP → CTC inference → semi-global alignment → per-word coloring) runs 100% on-device. No internet, no telemetry, no audio leaves the phone.
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter)
@@ -10,7 +12,7 @@ Murojaah — offline, real-time Qur'an memorization checker. As the reciter spea
 ## What's in this repo
 
 ```
-C:\Mura_Apps
+.
 ├── murojaah_app/murojaah_app/   ← runnable Flutter app (DOUBLE-NESTED, intentional)
 ├── murojaah_complete/           ← overlay bundle: native C++ + training + data pipeline
 ├── murojaah_advanced/           ← overlay bundle v2: beam decoder + native mic + test harness

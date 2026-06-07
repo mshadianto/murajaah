@@ -1,0 +1,25 @@
+# Line endings — explicit per filetype to survive cross-platform contributors
+# with different core.autocrlf settings.
+
+# Shell scripts MUST be LF (Linux/CI execution; CRLF breaks shebang)
+*.sh        text eol=lf
+
+# PowerShell idiomatic CRLF
+*.ps1       text eol=crlf
+
+# CI/config files — LF for parser consistency
+*.yml       text eol=lf
+*.yaml      text eol=lf
+
+# Source code — auto (let git decide, normalize on commit)
+*.dart      text
+*.py        text
+*.cpp       text
+*.h         text
+*.md        text
+
+# Binary — never touch
+*.db        binary
+*.onnx      binary
+*.png       binary
+*.jpg       binary

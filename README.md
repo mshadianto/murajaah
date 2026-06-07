@@ -24,12 +24,22 @@ Murojaah — offline, real-time Qur'an memorization checker. As the reciter spea
 
 ## Quick start (zero ML setup)
 
+Prerequisites: Python 3.9+ (for bootstrap), Flutter SDK 3.24.3+.
+
 ```bash
+# 1. Bootstrap build artefacts (one-time, after fresh clone)
+bash scripts/bootstrap.sh        # macOS/Linux
+# or
+pwsh scripts/bootstrap.ps1       # Windows
+
+# 2. Run the app
 cd murojaah_app/murojaah_app
-flutter create .       # generate android/ + ios/
+flutter create .       # generate android/ + ios/ (first run only)
 flutter pub get
 flutter run
 ```
+
+The bootstrap step generates `assets/quran.db` from the canonical Tanzil Uthmani XML source (`quran-uthmani.xml`). Re-run only when that XML updates.
 
 The **Simulasi** and **Uji manual** modes work immediately — no model required. The **Mic** button is gated until an overlay bundle is applied and a model is bundled (see below).
 

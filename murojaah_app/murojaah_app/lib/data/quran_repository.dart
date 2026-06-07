@@ -1,4 +1,9 @@
+import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../core/arabic_normalizer.dart';
@@ -12,20 +17,47 @@ class SurahMeta {
   const SurahMeta(this.id, this.ar, this.latin, this.ayahCount);
 }
 
-/// Local, offline Qur'an store. Schema mirrors the blueprint:
-/// surahs · ayahs (uthmani + simple) · words (uthmani + simple + strict).
+/// Local, offline Qur'an store. Loads `assets/quran.db` (full mushaf, built
+/// by `data_pipeline/build_quran_db.py`) if bundled; otherwise falls back to
+/// programmatic seeding from `quran_seed.dart` (6 short surahs).
 class QuranRepository {
   final Database db;
   QuranRepository(this.db);
 
+  static const String _assetDbPath = 'assets/quran.db';
+  static const String _dbFileName = 'quran.db';
+
   static Future<QuranRepository> open() async {
-    final dir = await getDatabasesPath();
-    final path = p.join(dir, 'quran.db');
-    final db = await openDatabase(path, version: 1, onCreate: _create);
+    final docs = await getApplicationDocumentsDirectory();
+    final path = p.join(docs.path, _dbFileName);
+
+    final exists = await File(path).exists();
+    if (!exists) {
+      // Prefer the bundled full-mushaf asset if it's present.
+      final copied = await _copyAssetIfAvailable(path);
+      if (!copied) {
+        // No asset → seeded DB (legacy 6-surah seed).
+        final db = await openDatabase(path, version: 1, onCreate: _createSeeded);
+        return QuranRepository(db);
+      }
+    }
+    final db = await openDatabase(path);
     return QuranRepository(db);
   }
 
-  static Future<void> _create(Database db, int version) async {
+  static Future<bool> _copyAssetIfAvailable(String dest) async {
+    try {
+      final ByteData data = await rootBundle.load(_assetDbPath);
+      final bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+      await File(dest).writeAsBytes(bytes, flush: true);
+      return true;
+    } catch (_) {
+      return false; // asset not bundled
+    }
+  }
+
+  // ─── Programmatic seed (kept as fallback for builds without the asset) ─────
+  static Future<void> _createSeeded(Database db, int version) async {
     await db.execute('''
       CREATE TABLE surahs(
         id INTEGER PRIMARY KEY,

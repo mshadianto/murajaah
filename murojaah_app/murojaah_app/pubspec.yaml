@@ -1,0 +1,44 @@
+name: murojaah
+description: Offline real-time Qur'an memorization (Murojaah) checker.
+publish_to: "none"
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sqflite: ^2.3.3        # local Qur'an DB
+  path: ^1.9.0
+  ffi: ^2.1.2            # dart:ffi helpers (malloc, Utf8) for the native core
+
+  # Add these once you wire the offline-AI mic path (see README §3):
+  #   record: ^5.1.2             # low-latency PCM capture → OnnxStt.feedPcm
+  #   permission_handler: ^11.3.1
+  # They're kept out of the default deps so `flutter create . && flutter run`
+  # works cleanly with no native/platform setup required.
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  # The Qur'an DB is seeded programmatically on first launch (see
+  # lib/data/quran_repository.dart), so no asset is required to run.
+  # Drop your exported model here and uncomment to bundle it:
+  # assets:
+  #   - assets/models/quran_ctc_int8.onnx
+
+  # For the intended typography, drop the .ttf files in assets/fonts/ and
+  # uncomment. Without this the app still renders Arabic via the system font.
+  # fonts:
+  #   - family: Amiri
+  #     fonts:
+  #       - asset: assets/fonts/Amiri-Regular.ttf
+  #       - asset: assets/fonts/Amiri-Bold.ttf
+  #         weight: 700

@@ -1,0 +1,39 @@
+# CMakeLists_test.txt — desktop build of the offline test harness.
+#
+#   mkdir build && cd build
+#   cmake -DCMAKE_BUILD_TYPE=Release -DORT_DIR=/path/to/onnxruntime ..
+#   make
+#   ./murojaah_test ../model.onnx ../sample.wav --target "expected words..."
+cmake_minimum_required(VERSION 3.18)
+project(murojaah_test CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+if(NOT ORT_DIR)
+  message(FATAL_ERROR "Pass -DORT_DIR=/path/to/onnxruntime (with include/ and lib/)")
+endif()
+
+add_executable(murojaah_test
+  main_test.cpp
+  murojaah_core.cpp
+  dsp.cpp
+  vad.cpp
+  ctc_decode.cpp
+  beam_decode.cpp
+  lexicon.cpp
+)
+
+target_include_directories(murojaah_test PRIVATE
+  ${ORT_DIR}/include
+  ${ORT_DIR}/include/onnxruntime
+)
+target_link_libraries(murojaah_test PRIVATE
+  ${ORT_DIR}/lib/libonnxruntime.so
+)
+target_compile_options(murojaah_test PRIVATE -O2 -Wall)
+
+# Linux: rpath the ORT lib so the binary finds it at runtime.
+set_target_properties(murojaah_test PROPERTIES
+  INSTALL_RPATH "${ORT_DIR}/lib"
+  BUILD_RPATH   "${ORT_DIR}/lib")

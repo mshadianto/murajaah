@@ -1,0 +1,22 @@
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
+.idea/
+*.iml
+.vscode/
+ios/Pods/
+ios/.symlinks/
+android/.gradle/
+android/local.properties
+android/key.properties
+*.jks
+*.keystore
+
+# native build artefacts
+native/build/
+native/third_party/
+assets/models/*.onnx

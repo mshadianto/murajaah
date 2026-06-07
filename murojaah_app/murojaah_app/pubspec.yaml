@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   sqflite: ^2.3.3        # local Qur'an DB
   path: ^1.9.0
+  path_provider: ^2.1.4  # app docs dir for the copied quran.db asset
   ffi: ^2.1.2            # dart:ffi helpers (malloc, Utf8) for the native core
 
   # Add these once you wire the offline-AI mic path (see README §3):
@@ -28,8 +29,12 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-  # The Qur'an DB is seeded programmatically on first launch (see
-  # lib/data/quran_repository.dart), so no asset is required to run.
+  assets:
+    - assets/quran.db
+
+  # The seeded mini-mushaf (lib/data/quran_repository.dart) is the fallback;
+  # assets/quran.db (full 114-surah mushaf) is consumed once QuranRepository
+  # gains the asset-loader (see murojaah_complete flutter_patches).
   # Drop your exported model here and uncomment to bundle it:
   # assets:
   #   - assets/models/quran_ctc_int8.onnx

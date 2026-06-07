@@ -33,6 +33,14 @@ data_pipeline/quran.db
 data_pipeline/quran-uthmani.xml
 data_pipeline/*.json
 
+# ── Quran data (build artefacts, don't commit) ────────────────
+# input XML placed at repo root
+/quran-uthmani.xml
+# built DB shipped to Flutter assets (any depth)
+**/assets/quran.db
+# built DB inside nested data_pipeline tree
+**/data_pipeline/quran.db
+
 # ── C++ / CMake (native/ + native/build/) ─────────────────────
 build/
 cmake-build-*/

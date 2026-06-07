@@ -58,6 +58,10 @@ What works today vs. what's still aspirational:
 - ⚠️ Hop loop still on the main isolate (blueprint goal: background isolate)
 - ⚠️ No thermal governor yet
 
+## Credits
+
+Qur'an text from the [Tanzil Project](https://tanzil.net), licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). The text is verbatim — no modifications. Built into the app's SQLite asset via `data_pipeline/build_quran_db.py`.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
